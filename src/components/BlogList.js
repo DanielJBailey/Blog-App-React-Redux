@@ -29,12 +29,13 @@ const BlogContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     margin-top: 100px;
-    padding-top: 100px;
+    padding: 50px 0;
     height: 100%;
     min-height: calc(100vh - 82px);
     width: 1000px;
     @media (max-width: 425px) {
         width: 100%;
+        padding-top: 10px;
     }
 `;
 

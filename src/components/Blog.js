@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Blog = ({id, title, body}) => (
     <BlogPost>
-        <img src="https://picsum.photos/1000/400/"/>
+        <img src="https://picsum.photos/1000/400/" alt=""/>
         <BlogContent>
             <h1 className="title">{title}</h1>
             <hr />
@@ -27,9 +27,12 @@ const BlogPost = styled.div`
     }
 
     .title {
-        padding: 50px 0 0;
+        padding: 30px 0 0;
         font-size: 48px;
         font-family: 'Merriweather', serif;
+        @media (max-width: 425px) {
+            font-size: 30px;
+        }
     }
 
     hr {

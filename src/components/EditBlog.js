@@ -1,49 +1,37 @@
 import React from 'react';
+import {connect,} from 'react-redux';
 import styled from 'styled-components';
-import { connect, } from 'react-redux';
 
 
-class NewBlog extends React.Component {
+class EditBlog extends React.Component {
+
     state = {
         title: "",
         body: ""
+    }
+
+    componentDidMount() {
+        let id = this.props.match.params.id;
+        id = parseInt(id);
+        console.log(id);
+        let blog = this.props.blog.filter(blog => (
+            blog.id !== id
+        ))
+        console.log(blog);
+        this.setState({
+            title: blog.title,
+            body: blog.body
+        })
     }
 
     handleChange = ({target: {name, value}}) => {
         this.setState({
             [name]: value
         })
-        this.resizeInputs();
     }
 
     handleSubmit = (e) => {
-        let { title, body } = this.state;
-        e.preventDefault();
-        const { dispatch, id } = this.props;
-        dispatch({ type: "ADD_BLOG", blog: { id, title, body } })
-        dispatch({ type: 'INC_ID' })
-        this.setState({
-            title: "",
-            body: ""
-        })
-        this.props.history.push('/');
-    }
-
-    resizeInputs = () => {
-        let titleInput = document.querySelector('.title-input');
-        if(titleInput.value === "") {
-            titleInput.style.height = `75px`;
-        } else {
-            var height = titleInput.scrollHeight;
-            titleInput.style.height = `${height}px`;
-        }
-        let bodyInput = document.querySelector('.body-input');
-        if(bodyInput.value === "") {
-            bodyInput.style.height = `300px`;
-        } else {
-            var bodyHeight = bodyInput.scrollHeight;
-            bodyInput.style.height = `${bodyHeight}px`
-        }
+        e.preventdefault();
     }
 
     render() {
@@ -80,7 +68,6 @@ class NewBlog extends React.Component {
         )
     }
 }
-
 
 const BlogContainer = styled.div`
     padding-top: 100px;
@@ -163,7 +150,7 @@ const BlogForm = styled.form`
 
 
 const mapStateToProps = (state) => {
-    return { id: state.nextId }
-  }
+    return { blog: state.blogs }
+}
 
-export default connect(mapStateToProps)(NewBlog);
+export default connect(mapStateToProps)(EditBlog);
